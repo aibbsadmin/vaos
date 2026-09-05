@@ -1,26 +1,177 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   Tailwind v4 theme — mapea los tokens del doc 08 a utilidades.
+   Equivalente CSS-first del tailwind.config.ts de la Tarea 0.2.
+   ============================================================ */
+@theme {
+  /* Rampas de color */
+  --color-bosque-900: #0D1A10;
+  --color-bosque-800: #1A2B1E;
+  --color-bosque-700: #243D28;
+  --color-bosque-600: #2F5233;
+  --color-bosque-500: #3A6640;
+
+  --color-esmeralda-600: #1E8449;
+  --color-esmeralda-500: #27AE60;
+  --color-esmeralda-400: #2ECC71;
+  --color-esmeralda-100: #D5F5E3;
+  --color-esmeralda-50:  #EAFAF1;
+
+  --color-ambar-600: #D68910;
+  --color-ambar-500: #F39C12;
+  --color-ambar-400: #F8C471;
+  --color-ambar-100: #FEF9E7;
+
+  --color-neutral-950: #0A0A0A;
+  --color-neutral-800: #2C2C2C;
+  --color-neutral-600: #5A5A5A;
+  --color-neutral-400: #9E9E9E;
+  --color-neutral-200: #E0E0E0;
+  --color-neutral-100: #F0F0F0;
+  --color-neutral-50:  #F8F8F8;
+
+  --color-crema-200: #F5F0E8;
+  --color-crema-100: #FAF7F2;
+
+  --color-rojo-500: #E74C3C;
+  --color-rojo-100: #FDEDEC;
+
+  /* WhatsApp */
+  --color-wa-header:  #128C7E;
+  --color-wa-chat:    #ECE5DD;
+  --color-wa-pattern: #E5DDD5;
+  --color-wa-out:     #DCF8C6;
+  --color-wa-in:      #FFFFFF;
+  --color-wa-check:   #4FC3F7;
+  --color-wa-btn:     #25D366;
+
+  /* Semánticos (siguen el modo activo vía var()) */
+  --color-bg-primary:     var(--bg-primary);
+  --color-bg-surface:     var(--bg-surface);
+  --color-bg-elevated:    var(--bg-elevated);
+  --color-txt-primary:    var(--text-primary);
+  --color-txt-secondary:  var(--text-secondary);
+  --color-txt-accent:     var(--text-accent);
+  --color-brd-subtle:     var(--border-subtle);
+  --color-brd-default:    var(--border-default);
+  --color-action-primary: var(--action-primary);
+
+  /* Tipografía */
+  --font-fraunces: var(--font-fraunces), "Georgia", serif;
+  --font-jakarta:  var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:     var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Sombras */
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
+  --shadow-lg:    0 8px 24px rgba(0,0,0,0.18);
+  --shadow-float: 0 16px 40px rgba(0,0,0,0.22);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bosque-900);
+  color: var(--text-primary);
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03";
 }
+
+/* Fraunces es variable con eje óptico: lo fijamos alto para títulos
+   grandes, tal como describe el doc 08 ("menús impresos en papel grueso"). */
+.font-fraunces {
+  font-variation-settings: "opsz" 40, "SOFT" 0, "WONK" 0;
+}
+
+/* ============================================================
+   Escala tipográfica del doc 08, sección 2.3
+   ============================================================ */
+.t-display-xl { font-family: var(--font-fraunces), serif; font-size: 40px; font-weight: 700; letter-spacing: -1px;   line-height: 1.1;  font-variation-settings: "opsz" 40; }
+.t-display-lg { font-family: var(--font-fraunces), serif; font-size: 32px; font-weight: 600; letter-spacing: -0.5px; line-height: 1.15; font-variation-settings: "opsz" 32; }
+.t-display-md { font-family: var(--font-fraunces), serif; font-size: 24px; font-weight: 600;                          line-height: 1.2;  font-variation-settings: "opsz" 24; }
+
+.t-heading-lg { font-family: var(--font-jakarta), sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; }
+.t-heading-md { font-family: var(--font-jakarta), sans-serif; font-size: 17px; font-weight: 600; line-height: 1.35; }
+.t-heading-sm { font-family: var(--font-jakarta), sans-serif; font-size: 15px; font-weight: 600; line-height: 1.4; }
+
+.t-body-lg    { font-family: var(--font-jakarta), sans-serif; font-size: 16px; font-weight: 400; line-height: 1.6; }
+.t-body-md    { font-family: var(--font-jakarta), sans-serif; font-size: 14px; font-weight: 400; line-height: 1.55; }
+.t-body-sm    { font-family: var(--font-jakarta), sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; }
+
+.t-label-lg   { font-family: var(--font-jakarta), sans-serif; font-size: 13px; font-weight: 500; line-height: 1; letter-spacing: 0.2px; }
+.t-label-sm   { font-family: var(--font-jakarta), sans-serif; font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 0.4px; }
+
+.t-mono-sm    { font-family: var(--font-mono), monospace; font-size: 12px; font-weight: 400; }
+
+/* ============================================================
+   Utilidades de la demo
+   ============================================================ */
+
+/* Scrollbar oculto en carruseles y viewports de teléfono */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Patrón de fondo de WhatsApp — geometría desaturada sobre #ECE5DD */
+.wa-pattern {
+  background-color: var(--wa-chat-bg);
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--wa-pattern) 0 3px, transparent 3.5px),
+    radial-gradient(circle at 62% 42%, var(--wa-pattern) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 88% 74%, var(--wa-pattern) 0 3px, transparent 3.5px),
+    radial-gradient(circle at 33% 88%, var(--wa-pattern) 0 2px, transparent 2.5px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%23D9D0C6' stroke-width='1.1' opacity='0.55'%3E%3Cpath d='M18 26c4-6 10-6 14 0M96 14l7 7-7 7-7-7z'/%3E%3Ccircle cx='120' cy='52' r='6'/%3E%3Cpath d='M30 70h16M38 62v16'/%3E%3Cpath d='M74 92c5 0 9 4 9 9s-4 9-9 9'/%3E%3Cpath d='M112 108l8 8M120 108l-8 8'/%3E%3Ccircle cx='24' cy='114' r='5'/%3E%3Cpath d='M58 34c0-4 3-7 7-7s7 3 7 7-3 7-7 7'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 140px 140px;
+}
+
+/* Cola de burbuja de WhatsApp */
+.wa-tail-in::before,
+.wa-tail-out::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 13px;
+}
+.wa-tail-in::before {
+  left: -8px;
+  background: var(--wa-bubble-in);
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+.wa-tail-out::before {
+  right: -8px;
+  background: var(--wa-bubble-out);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+/* Animaciones de la demo */
+@keyframes amigos-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-rise { animation: amigos-rise 0.32s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes amigos-sheet-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.animate-sheet-up { animation: amigos-sheet-up 0.34s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes amigos-pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.45); }
+  70%  { box-shadow: 0 0 0 12px rgba(39, 174, 96, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+}
+.animate-pulse-ring { animation: amigos-pulse-ring 2s ease-out infinite; }

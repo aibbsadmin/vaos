@@ -1,0 +1,101 @@
+/* ============================================================
+   Amigos App — Sistema de diseño
+   Fuente de verdad: doc 08_Figma_Design_Prompt.md, sección 2
+   No agregar colores ni fuentes que no estén aquí.
+   ============================================================ */
+
+:root {
+  /* ---------- Primitivos (no usar directo en componentes) ---------- */
+  --bosque-900: #0D1A10;
+  --bosque-800: #1A2B1E;
+  --bosque-700: #243D28;
+  --bosque-600: #2F5233;
+  --bosque-500: #3A6640;
+
+  --esmeralda-600: #1E8449;
+  --esmeralda-500: #27AE60;
+  --esmeralda-400: #2ECC71;
+  --esmeralda-100: #D5F5E3;
+  --esmeralda-050: #EAFAF1;
+
+  --ambar-600: #D68910;
+  --ambar-500: #F39C12;
+  --ambar-400: #F8C471;
+  --ambar-100: #FEF9E7;
+
+  --neutral-950: #0A0A0A;
+  --neutral-800: #2C2C2C;
+  --neutral-600: #5A5A5A;
+  --neutral-400: #9E9E9E;
+  --neutral-200: #E0E0E0;
+  --neutral-100: #F0F0F0;
+  --neutral-050: #F8F8F8;
+
+  --crema-200: #F5F0E8;
+  --crema-100: #FAF7F2;
+
+  --rojo-500: #E74C3C;
+  --rojo-100: #FDEDEC;
+
+  /* ---------- WhatsApp (colores exactos, doc 07 Tarea 0.7) ---------- */
+  --wa-header-bg:    #128C7E;
+  --wa-chat-bg:      #ECE5DD;
+  --wa-pattern:      #E5DDD5;
+  --wa-bubble-out:   #DCF8C6;
+  --wa-bubble-in:    #FFFFFF;
+  --wa-check-double: #4FC3F7;
+  --wa-flow-btn:     #25D366;
+
+  /* ---------- Tokens semánticos — modo oscuro (default app móvil) ---------- */
+  --bg-primary:     var(--bosque-800);
+  --bg-surface:     var(--bosque-700);
+  --bg-elevated:    var(--crema-200);
+  --bg-overlay:     rgba(13, 26, 16, 0.85);
+
+  --text-primary:   var(--crema-200);
+  --text-secondary: var(--neutral-400);
+  --text-on-accent: #FFFFFF;
+  --text-accent:    var(--esmeralda-400);
+
+  --border-subtle:  var(--bosque-600);
+  --border-default: var(--bosque-500);
+  --border-accent:  var(--esmeralda-500);
+
+  --state-success-bg:   var(--esmeralda-100);
+  --state-success-text: var(--esmeralda-600);
+  --state-pending-bg:   var(--ambar-100);
+  --state-pending-text: var(--ambar-600);
+  --state-error-bg:     var(--rojo-100);
+  --state-error-text:   var(--rojo-500);
+
+  --action-primary:       var(--esmeralda-500);
+  --action-primary-hover: var(--esmeralda-600);
+  --action-destructive:   var(--rojo-500);
+
+  /* ---------- Radios ---------- */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 999px;
+
+  /* ---------- Sombras (con mesura — solo elementos flotantes) ---------- */
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
+  --shadow-lg:    0 8px 24px rgba(0,0,0,0.18);
+  --shadow-float: 0 16px 40px rgba(0,0,0,0.22);
+}
+
+/* ---------- Modo claro — para el panel B2B del local ---------- */
+.light-mode {
+  --bg-primary:     var(--neutral-050);
+  --bg-surface:     #FFFFFF;
+  --bg-elevated:    #FFFFFF;
+
+  --text-primary:   var(--neutral-950);
+  --text-secondary: var(--neutral-600);
+  --text-accent:    var(--esmeralda-600);
+
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-400);
+}
