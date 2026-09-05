@@ -10,16 +10,21 @@ export function PhoneFrame({
   className,
   bare = false,
   statusBarTint = "light",
+  statusBarBg,
 }: {
   children: React.ReactNode;
   className?: string;
   /** Sin marco físico — para embeber la pantalla a pantalla completa en móvil real. */
   bare?: boolean;
   statusBarTint?: "light" | "dark";
+  /** Color propio de la franja superior (WhatsApp usa el teal del header). */
+  statusBarBg?: string;
 }) {
   const screen = (
     <div className={cn("relative flex h-full w-full flex-col overflow-hidden", className)}>
-      <StatusBar tint={statusBarTint} />
+      <div className="shrink-0" style={statusBarBg ? { background: statusBarBg } : undefined}>
+        <StatusBar tint={statusBarTint} />
+      </div>
       <div className="relative flex min-h-0 flex-1 flex-col">{children}</div>
       <HomeIndicator tint={statusBarTint} />
     </div>
@@ -27,13 +32,17 @@ export function PhoneFrame({
 
   if (bare) return <div className="h-dvh w-full">{screen}</div>;
 
+  // En un teléfono real la demo ocupa toda la pantalla; el marco físico
+  // aparece solo en escritorio, donde da contexto de "esto es una app móvil".
   return (
-    <div className="grid min-h-dvh place-items-center bg-bosque-900 p-6">
+    <div className="grid min-h-dvh place-items-center bg-bosque-900 md:p-6">
       <div
-        className="relative shrink-0 rounded-[46px] bg-neutral-950 p-[10px] shadow-float ring-1 ring-white/10"
-        style={{ width: 390 + 20, height: 844 + 20 }}
+        className={cn(
+          "relative h-dvh w-full shrink-0 overflow-hidden bg-neutral-950",
+          "md:h-[864px] md:w-[410px] md:rounded-[46px] md:p-[10px] md:shadow-float md:ring-1 md:ring-white/10",
+        )}
       >
-        <div className="relative h-full w-full overflow-hidden rounded-[36px]">{screen}</div>
+        <div className="relative h-full w-full overflow-hidden md:rounded-[36px]">{screen}</div>
       </div>
     </div>
   );

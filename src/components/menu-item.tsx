@@ -10,9 +10,11 @@ import type { MenuItem as Item } from "@/data/mock-data";
 /** Miniatura del plato — gradiente derivado del id, sin assets externos. */
 function Thumb({ id }: { id: string }) {
   const n = id.charCodeAt(id.length - 1);
+  // Placeholder de foto: tonos cálidos de la paleta (ámbar, rojo, crema) —
+  // los verdes del sistema se funden con el fondo bosque y leen como card vacía.
   const hues = [
-    ["#D68910", "#7A4A08"], ["#27AE60", "#14532B"], ["#E74C3C", "#7A1F16"],
-    ["#F39C12", "#8A4B0A"], ["#3A6640", "#16301A"], ["#1E8449", "#0D3D22"],
+    ["#F39C12", "#8A4B0A"], ["#E74C3C", "#7A1F16"], ["#D68910", "#5E3506"],
+    ["#F8C471", "#A9701A"], ["#E74C3C", "#8A3A12"], ["#F5F0E8", "#B08D5A"],
   ];
   const [a, b] = hues[n % hues.length];
   return (

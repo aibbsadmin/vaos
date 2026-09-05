@@ -47,22 +47,38 @@ export function Avatar({
   );
 }
 
-/** Avatares apilados — usado en CircleRow y en el hero de reunión confirmada. */
-export function AvatarStack({ names, size = "sm", max = 4 }: { names: string[]; size?: keyof typeof AVATAR_SIZE; max?: number }) {
+/** Avatares apilados — usado en CircleRow y en el hero de reunión confirmada.
+    `ring` debe coincidir con el fondo sobre el que se apoya el stack. */
+export function AvatarStack({
+  names,
+  size = "sm",
+  max = 4,
+  ring = "var(--bg-surface)",
+}: {
+  names: string[];
+  size?: keyof typeof AVATAR_SIZE;
+  max?: number;
+  ring?: string;
+}) {
   const shown = names.slice(0, max);
   const rest = names.length - shown.length;
   const px = AVATAR_SIZE[size];
+  const overlap = -Math.round(px / 4);
   return (
     <span className="flex items-center">
       {shown.map((n, i) => (
-        <span key={n + i} className="rounded-full ring-2 ring-[var(--bg-primary)]" style={{ marginLeft: i ? -px / 3 : 0 }}>
+        <span
+          key={n + i}
+          className="rounded-full"
+          style={{ marginLeft: i ? overlap : 0, boxShadow: `0 0 0 2px ${ring}` }}
+        >
           <Avatar name={n} size={size} />
         </span>
       ))}
       {rest > 0 && (
         <span
-          className="grid place-items-center rounded-full bg-bosque-600 t-label-sm text-neutral-400 ring-2 ring-[var(--bg-primary)]"
-          style={{ width: px, height: px, marginLeft: -px / 3 }}
+          className="grid place-items-center rounded-full bg-bosque-600 t-label-sm text-neutral-400"
+          style={{ width: px, height: px, marginLeft: overlap, boxShadow: `0 0 0 2px ${ring}` }}
         >
           +{rest}
         </span>

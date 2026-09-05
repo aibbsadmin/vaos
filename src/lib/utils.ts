@@ -11,7 +11,7 @@ export function soles(n: number) {
 }
 
 /** Colores de avatar — rotación de 6 de la paleta (doc 08, §5 Avatar). */
-const AVATAR_COLORS = ["#1E8449", "#2F5233", "#D68910", "#3A6640", "#27AE60", "#5A5A5A"];
+const AVATAR_COLORS = ["#1E8449", "#2F5233", "#D68910", "#3A6640", "#27AE60"];
 
 export function avatarColor(seed: string) {
   let h = 0;
