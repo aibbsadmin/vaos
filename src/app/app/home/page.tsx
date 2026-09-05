@@ -4,8 +4,32 @@
 import Link from "next/link";
 import { Bell, ChevronRight, MapPin, Plus } from "lucide-react";
 import { Avatar, AvatarStack, SectionLabel } from "@/components/ui";
+import { ListSection } from "@/components/list-section";
 import { TabBar } from "@/components/app-nav";
 import { circles } from "@/data/mock-data";
+
+const upcomingMeetings = [
+  {
+    id: "m1",
+    href: "/app/meeting/voting",
+    badge: "En votación",
+    tone: "voting" as const,
+    title: "Almuerzo del viernes",
+    subtitle: "La Palomilla · 3 de 4 confirmaron",
+    people: ["Carlos", "Ana", "Luis"],
+    when: "Viernes 26 · 12:30",
+  },
+  {
+    id: "m2",
+    href: "/app/meeting/confirmed",
+    badge: "Confirmada",
+    tone: "confirmed" as const,
+    title: "Desayuno post-gym",
+    subtitle: "La Lucha · 3 de 3 confirmaron",
+    people: ["Rodrigo", "Valeria", "Sebastián"],
+    when: "Sábado 27 · 09:00",
+  },
+];
 import { cn } from "@/lib/utils";
 
 export default function HomeScreen() {
@@ -44,10 +68,12 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        <SectionLabel className="mb-2.5 mt-7">Mis círculos</SectionLabel>
-
-        <div className="space-y-3">
-          {circles.map((c) => {
+        <ListSection
+          className="mt-7"
+          label="Mis círculos"
+          sheetTitle="Mis círculos"
+          gap="gap-3"
+          items={circles.map((c) => {
             const stale = c.lastMeeting > 14;
             return (
               <Link
@@ -76,22 +102,35 @@ export default function HomeScreen() {
               </Link>
             );
           })}
-        </div>
+        />
 
-        <SectionLabel className="mb-2.5 mt-7">Próxima reunión</SectionLabel>
-        <Link
-          href="/app/meeting/voting"
-          className="flex items-center gap-3 rounded-lg border border-esmeralda-500/40 bg-esmeralda-500/8 p-4 transition-colors hover:bg-esmeralda-500/12"
-        >
-          <div className="min-w-0 flex-1">
-            <div className="t-label-sm uppercase text-ambar-400">En votación</div>
-            <div className="mt-1 t-display-md text-[var(--text-primary)]">Almuerzo del viernes</div>
-            <div className="mt-0.5 t-body-sm text-[var(--text-secondary)]">
-              La Palomilla · 3 de 4 confirmaron
-            </div>
-          </div>
-          <ChevronRight size={18} className="shrink-0 text-esmeralda-400" />
-        </Link>
+        <SectionLabel className="mb-2.5 mt-7">Próximas reuniones</SectionLabel>
+        <div className="-mx-5 flex gap-3 overflow-x-auto no-scrollbar px-5 pb-1">
+          {upcomingMeetings.map((m) => (
+            <Link
+              key={m.id}
+              href={m.href}
+              className="flex w-[268px] shrink-0 flex-col rounded-lg border border-esmeralda-500/40 bg-esmeralda-500/8 p-4 transition-colors hover:bg-esmeralda-500/12"
+            >
+              <span
+                className={cn(
+                  "self-start rounded-full px-2 py-1 t-label-sm uppercase",
+                  m.tone === "voting"
+                    ? "bg-ambar-100 text-ambar-600"
+                    : "bg-esmeralda-100 text-esmeralda-600",
+                )}
+              >
+                {m.badge}
+              </span>
+              <div className="mt-2.5 t-display-md text-[var(--text-primary)]">{m.title}</div>
+              <div className="mt-1 t-body-sm text-[var(--text-secondary)]">{m.subtitle}</div>
+              <div className="mt-3 flex items-center gap-2 border-t border-esmeralda-500/20 pt-3">
+                <AvatarStack names={m.people} max={4} ring="#1F3A28" />
+                <span className="t-body-sm text-[var(--text-secondary)]">{m.when}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* FAB 52px — doc 08 Pantalla 01 */}

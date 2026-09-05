@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MapPin, Clock, Plus } from "lucide-react";
 import { ScreenHeader } from "@/components/app-nav";
 import { Avatar, Button, SectionLabel } from "@/components/ui";
+import { ListSection } from "@/components/list-section";
 import { MeetingProgress } from "@/components/vote-panel";
 import { attendees, activeMeeting, myBill, myTotal } from "@/data/mock-data";
 import { soles } from "@/lib/utils";
@@ -34,9 +35,10 @@ export default function CheckinScreen() {
 
       <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar border-t border-[var(--border-subtle)] px-5 py-5">
         {/* Estado del grupo */}
-        <SectionLabel className="mb-2.5">Quién ha llegado</SectionLabel>
-        <div className="space-y-2">
-          {attendees.map((p) => (
+        <ListSection
+          label="Quién ha llegado"
+          sheetTitle="Quién ha llegado"
+          items={attendees.map((p) => (
             <div
               key={p.id}
               className="flex items-center gap-2.5 rounded-md bg-[var(--bg-surface)] px-3 py-2.5"
@@ -58,7 +60,7 @@ export default function CheckinScreen() {
               )}
             </div>
           ))}
-        </div>
+        />
 
         {/* Tu pedido confirmado */}
         <SectionLabel className="mb-2.5 mt-7">Tu pedido confirmado</SectionLabel>

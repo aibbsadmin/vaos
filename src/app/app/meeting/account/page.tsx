@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Check, ArrowRight, ExternalLink } from "lucide-react";
 import { ScreenHeader } from "@/components/app-nav";
 import { Avatar, Badge, Button, SectionLabel } from "@/components/ui";
+import { ListSection } from "@/components/list-section";
 import { PaymentSelector, PaymentQR } from "@/components/payment-button";
 import { activeMeeting, groupPayments, myBill, myTotal, type PaymentMethodId } from "@/data/mock-data";
 import { useDemo } from "@/lib/demo-state";
@@ -54,8 +55,9 @@ export default function AccountScreen() {
             {paidCount} de {payments.length} · {soles(activeMeeting.account.total)}
           </span>
         </div>
-        <div className="space-y-2">
-          {payments.map((p) => (
+        <ListSection
+          sheetTitle="Pagos del grupo"
+          items={payments.map((p) => (
             <div
               key={p.name}
               className="flex items-center gap-2.5 rounded-md bg-[var(--bg-surface)] px-3 py-2.5"
@@ -82,7 +84,7 @@ export default function AccountScreen() {
               </div>
             </div>
           ))}
-        </div>
+        />
 
         {!paid ? (
           <>

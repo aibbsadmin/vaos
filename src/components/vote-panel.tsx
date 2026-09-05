@@ -1,42 +1,38 @@
+"use client";
+
 /* VotePanel — panel de votos embebido en la burbuja del agente (doc 08, §6 Pantalla 03). */
-import { Avatar } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { PersonRow } from "@/components/person-row";
+import { ListSection } from "@/components/list-section";
 import type { Participant } from "@/data/mock-data";
 
-const ROW = {
-  confirmed: { icon: "✅", text: "Viernes", tone: "text-esmeralda-400" },
-  organizer: { icon: "✅", text: "Viernes", tone: "text-esmeralda-400" },
-  pending:   { icon: "⏳", text: "Sin responder", tone: "text-ambar-400" },
-  rejected:  { icon: "❌", text: "Solo el martes", tone: "text-rojo-500" },
-} as const;
+/* Panel de votos: una fila por persona, colapsable, con el patrón global
+   de "ver todos" cuando la lista supera 4 personas. */
+const ANSWER: Record<string, { answer: string; detail?: string; comment?: string }> = {
+  confirmed: { answer: "Viernes", detail: "Confirmó el jueves 25 · 18:42" },
+  organizer: { answer: "Viernes", detail: "Organizador · propuso el jueves 25 · 09:10" },
+  pending:   { answer: "Sin responder", detail: "Invitado el jueves 25 · 09:12" },
+  rejected:  { answer: "Solo el martes", comment: "el viernes no puedo, ¿pueden el martes?" },
+};
 
 export function VotePanel({ people }: { people: Participant[] }) {
-  return (
-    <div className="overflow-hidden rounded-md border border-[var(--border-subtle)] bg-bosque-800">
-      {people.map((p, i) => {
-        const r = ROW[p.status];
-        return (
-          <div
-            key={p.id}
-            className={cn(
-              "flex items-center gap-2.5 px-3 py-2.5",
-              i > 0 && "border-t border-[var(--border-subtle)]",
-            )}
-          >
-            <Avatar name={p.name} size="sm" />
-            <span className="t-heading-sm flex-1 text-[var(--text-primary)]">
-              {p.name}
-              {p.status === "organizer" && (
-                <span className="ml-1.5 t-label-sm text-ambar-400">★ organizador</span>
-              )}
-            </span>
-            <span className={cn("t-body-sm", r.tone)}>{r.text}</span>
-            <span className="t-body-sm">{r.icon}</span>
-          </div>
-        );
-      })}
-    </div>
-  );
+  const rows = people.map((p) => {
+    const a = ANSWER[p.status];
+    return (
+      <PersonRow
+        key={p.id}
+        name={p.name}
+        status={p.status}
+        answer={a.answer}
+        detail={a.detail}
+        comment={a.comment}
+        isMe={p.isMe}
+        className="bg-bosque-800"
+      />
+    );
+  });
+
+  return <ListSection items={rows} sheetTitle="Respuestas del grupo" preview={3} threshold={4} />;
 }
 
 /** Barra de progreso de la reunión — doc 01, §9. */

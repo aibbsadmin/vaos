@@ -7,7 +7,8 @@ import Link from "next/link";
 import { Share2, CalendarDays, MapPin, Users, Bell, Check, Navigation } from "lucide-react";
 import { ScreenHeader, TabBar } from "@/components/app-nav";
 import { AvatarStack, Badge, SectionLabel } from "@/components/ui";
-import { PersonChip } from "@/components/person-chip";
+import { PersonRow } from "@/components/person-row";
+import { ListSection } from "@/components/list-section";
 import { activeMeeting, attendees } from "@/data/mock-data";
 
 export default function ConfirmedScreen() {
@@ -76,21 +77,22 @@ export default function ConfirmedScreen() {
               <span className="t-heading-sm text-[var(--text-primary)]">Participantes</span>
               <Badge type="success" className="ml-auto">{attendees.length} confirmados</Badge>
             </div>
-            <div className="space-y-2">
-              {attendees.slice(0, 3).map((p) => (
-                <PersonChip
+            <ListSection
+              sheetTitle="Participantes"
+              preview={3}
+              threshold={3}
+              items={attendees.map((p) => (
+                <PersonRow
                   key={p.id}
                   name={p.name}
                   status={p.status === "pending" ? "confirmed" : p.status}
-                  detail={p.usual}
+                  answer="Confirmado"
+                  detail={p.usual ? `Lo de siempre: ${p.usual}` : undefined}
                   isMe={p.isMe}
                   className="bg-bosque-800"
                 />
               ))}
-            </div>
-            <button className="mt-3 t-label-lg text-esmeralda-400 hover:text-esmeralda-500">
-              Ver todos ({attendees.length}) →
-            </button>
+            />
           </div>
 
           <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4">

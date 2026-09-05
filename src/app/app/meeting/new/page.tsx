@@ -171,7 +171,7 @@ export default function NewMeetingScreen() {
                   </button>
                 );
               })}
-            <button className="flex items-center gap-1.5 rounded-full border border-dashed border-[var(--border-default)] px-3.5 py-2 t-label-lg text-[var(--text-secondary)] transition-colors hover:border-esmeralda-500 hover:text-esmeralda-400">
+            <button className="flex items-center gap-1.5 rounded-full border border-dashed border-esmeralda-500/40 px-3.5 py-2 t-label-lg text-esmeralda-400/80 transition-colors hover:border-esmeralda-500 hover:text-esmeralda-400">
               <Plus size={14} /> Agregar
             </button>
           </div>
